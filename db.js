@@ -1,11 +1,13 @@
 const mysql = require('mysql2');
-const db =  mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Dangeti11',
-  database: 'innozon',
-  multipleStatements: true,
-  connectionLimit: 10
+require('dotenv').config();
+
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  multipleStatements: process.env.DB_MULTIPLE_STATEMENTS === 'true',
+  connectionLimit: parseInt(process.env.DB_CONNECTION_LIMIT, 10),
 });
 
 
@@ -42,14 +44,13 @@ const createUserTable = () => {
 
 const createProjectsTable = () => {
   const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS products (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    price VARCHAR(255) NOT NULL,
-    image BLOB NOT NULL
-  );
-  `;
+  CREATE TABLE IF NOT EXISTS products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  description VARCHAR(255) NOT NULL,
+  price VARCHAR(255) NOT NULL,
+  image LONGBLOB NOT NULL
+);`;
   createTables(createTableQuery , "products")
 };
 

@@ -7,7 +7,7 @@ const db = require('./db.js');
 
 let port = 3005;
 
-app.use(express.json());
+app.use(express.json({limit: '10mb'}));
 app.use(cors())
 
 // if (db.checkConnection()) {

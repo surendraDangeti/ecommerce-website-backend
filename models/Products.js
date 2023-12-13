@@ -24,7 +24,6 @@ const getAllProducts = async() => {
 };
 
 const addProducts = async (name, description, price, image) => {
-  console.log("imagedata",  image)
     const sql =
       'INSERT INTO innozon.products(name, description, price , image) VALUES (?, ?, ?, ?)';
     return queryExecuterwithValues(sql, [name, description, price, image]);

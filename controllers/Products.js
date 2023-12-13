@@ -20,7 +20,6 @@ const getProducts = (req, res) => {
 
 const addnewProduct = (req, res) => {
   const { name, description, price, image } = req.body;
-  // const imageBuffer = Buffer.from(image, 'base64');
   addProducts(name, description, price, image)
     .then((data) => {
       res.status(200).json({ success: true, message: "Your product is successfully added to inezon" });

@@ -2,10 +2,11 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const { router } = require('./Routers/UserRouters');
+const {OrderRoute} = require("./Routers/Order")
 const {productsRoute} = require('./Routers/Products.js')
 const db = require('./db.js');
 
-let port = 3005;
+let port = process.env.SERVER_PORT;
 
 app.use(express.json({limit: '10mb'}));
 app.use(cors())
@@ -17,7 +18,9 @@ app.use(cors())
 // }
 
 app.use('/auth', router);
+app.use('/auth', OrderRoute)
 app.use('/', productsRoute)
+
 
 app.listen(port, () => {
   console.log(`Port is running at ${port}`);

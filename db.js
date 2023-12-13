@@ -36,6 +36,7 @@ const createUserTable = () => {
     CREATE TABLE IF NOT EXISTS users (
       id INT AUTO_INCREMENT PRIMARY KEY,
       username VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
       password VARCHAR(255) NOT NULL
     )
   `;
@@ -54,8 +55,23 @@ const createProjectsTable = () => {
   createTables(createTableQuery , "products")
 };
 
+const createOrderTable = ()=>{
+  const createTableQuery = `
+  CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    clientId INT,
+    productId INT,
+    quantity INT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (clientId) REFERENCES users(id),
+    FOREIGN KEY (productId) REFERENCES products(id)
+)
+  `
+  createTables(createTableQuery , "orders")
+}
 
 createUserTable()
 createProjectsTable()
+createOrderTable()
 
 module.exports = {db} 
